@@ -1,0 +1,350 @@
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/zxciaz/VenyxUI/main/Reuploaded"))() --someone reuploaded it so I put it in place of the original back up so guy can get free credit.
+local venyx = library.new("Louv Hub", 5013109572)
+
+getgenv().auto_katana = false
+getgenv().auto_claim = false
+getgenv().craft = false
+getgenv().spinner = false
+
+-- first page
+local page = venyx:addPage("Main", 5012544693)
+local section1 = page:addSection("Gifts /-/ Free")
+
+section1:addToggle("Auto Claim Gifts", nil, function(value)
+    getgenv().auto_claim = value
+    while getgenv().auto_claim and wait() do
+        loadstring(game:HttpGet("https://pastebin.com/raw/mdaf0fHD"))()
+    end
+end)
+
+section1:addToggle("Auto Spin Wheel", nil, function(value)
+    getgenv().spinner = value
+    while getgenv().spinner and wait() do
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Wheel"):InvokeServer("Spin")
+    end
+end)
+
+section1:addButton("Redeem Codes", function()
+    local codes = {"RELEASE", "UPDATE","chaos","SORRY","UGC","MISSING","GamingDan","SECRET"}
+    for _, code in pairs(codes) do
+        game:GetService("ReplicatedStorage"):WaitForChild("KingermanCodeSystem"):WaitForChild("Redeem"):InvokeServer(tostring(code))
+        wait(0.05)
+    end
+end)
+
+local section1 = page:addSection("Unlock")
+
+section1:addButton("Unlock Area 2", function()
+    game.workspace.Zones.TeleportToArea2.Wins.Value = 0
+end)
+section1:addButton("Unlock Area 3", function()
+    game.workspace.Zones.TeleportToArea3.Wins.Value = 0
+end)
+section1:addButton("Unlock Area 4", function()
+    game.workspace.Zones.TeleportToArea4.Wins.Value = 0
+end)
+section1:addButton("Unlock Area 5", function()
+    game.workspace.Zones.TeleportToArea5.Wins.Value = 0
+end)
+
+local section1 = page:addSection("Teleport")
+section1:addButton("Teleport To Area 1", function()
+    local player = game.Players.LocalPlayer
+    local targetPosition = game.workspace.Zones.TeleportBackToDojo.Zone.Position
+    player.Character:MoveTo(targetPosition)
+end)
+section1:addButton("Teleport To Area 2", function()
+    local player = game.Players.LocalPlayer
+    local targetPosition = game.workspace.Zones.TeleportToArea2.Zone.Position
+    player.Character:MoveTo(targetPosition)
+end)
+section1:addButton("Teleport To Area 3", function()
+    local player = game.Players.LocalPlayer
+    local targetPosition = game.workspace.Zones.TeleportToArea3.Zone.Position
+    player.Character:MoveTo(targetPosition)
+end)
+section1:addButton("Teleport To Area 4", function()
+    local player = game.Players.LocalPlayer
+    local targetPosition = game.workspace.Zones.TeleportToArea4.Zone.Position
+    player.Character:MoveTo(targetPosition)
+end)
+section1:addButton("Teleport To Area 5", function()
+    local player = game.Players.LocalPlayer
+    local targetPosition = game.workspace.maps:GetChildren()[12].Model:GetChildren()[9].Position
+    targetPosition = targetPosition + Vector3.new(5, 0, 5)
+    player.Character:MoveTo(targetPosition)    
+end)
+
+local page = venyx:addPage("Power", 5012544693)
+local section1 = page:addSection("Katana & NunChucks")
+
+section1:addToggle("Auto Katana/Nunchucks Power", nil, function(value)
+    getgenv().auto_katana = value
+    while getgenv().auto_katana and wait() do
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DoAction"):FireServer()
+    end
+end)
+
+--local args = {[1] = "Area4",[2] = "Dummies",[3] = 1}
+--game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DoAction"):FireServer(unpack(args))
+local section1 = page:addSection("NunChuck Dummies")
+getgenv().dummy = true
+getgenv().dummy_bag = 4
+getgenv().area_dummy = "Area5"
+
+section1:addDropdown("Area", {"Area1", "Area2", "Area3", "Area4", "Area5"}, function(xed)
+    getgenv().area_dummy = xed
+end)
+
+section1:addDropdown("Bag", {1,2,3,4}, function(xed)
+    getgenv().dummy_bag = xed
+end)
+
+section1:addToggle("Most Punch Power", nil, function(value)
+    getgenv().dummy = value
+    while getgenv().dummy and wait() do
+        local player = game.Players.LocalPlayer
+        local character = player.Character
+        character:SetPrimaryPartCFrame(CFrame.new(workspace.Dummies[getgenv().area_dummy][getgenv().dummy_bag]["Root"].Position) + Vector3.new(-4, 0, 2))
+        local args = {[1] = getgenv().area_dummy,[2] = "Dummies",[3] = getgenv().dummy_bag}
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DoAction"):FireServer(unpack(args))
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DoAction"):FireServer()
+    end
+end)
+
+local section1 = page:addSection("Punch Bags")
+
+getgenv().punches = true
+getgenv().punch_bag = 7
+getgenv().area_punch = "Area5"
+
+section1:addDropdown("Area", {"Area1", "Area2", "Area3", "Area4", "Area5"}, function(xed)
+    getgenv().area_punch = xed
+end)
+
+section1:addDropdown("Bag", {1,2,3,4,5,6,7}, function(xed)
+    getgenv().punch_bag = xed
+end)
+
+section1:addToggle("Most Punch Power", nil, function(value)
+    getgenv().punches = value
+    while getgenv().punches and wait() do
+        local player = game.Players.LocalPlayer
+        local character = player.Character
+        if getgenv().punch_bag == 7 then
+            character:SetPrimaryPartCFrame(CFrame.new(workspace.PunchingBags[getgenv().area_punch].VIP["Root"].Position) + Vector3.new(-4, 0, 2))
+        else
+            character:SetPrimaryPartCFrame(CFrame.new(workspace.PunchingBags[getgenv().area_punch][getgenv().punch_bag]["Root"].Position))
+        end
+        local args = {[1] = getgenv().area_punch,[2] = "PunchingBag",[3] = getgenv().punch_bag}
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DoAction"):FireServer(unpack(args))
+    end
+end)
+
+local page = venyx:addPage("Equiper", 5012544693)
+local section1 = page:addSection("Equip-Script")
+
+getgenv().auto_equip = false
+getgenv().weapon = "Katana"
+getgenv().weapon_area = "Area5"
+getgenv().weapon_numb = 1
+
+-- game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EquipAndUnequipTool"):FireServer(getgenv().weapon_area, getgenv().weapon, getgenv().weapon_numb)
+
+section1:addDropdown("Weapon ", {"Katana", "Nunchuck"}, function(xed)
+    getgenv().weapon = xed
+end)
+
+section1:addDropdown("Area ", {"Area1", "Area2", "Area3", "Area4", "Area5"}, function(xed)
+    getgenv().weapon_area = xed
+end)
+
+section1:addDropdown("Weapon Lvl", {1,2,3,4,5,6,7,8,9,10,11,12}, function(xed)
+    getgenv().weapon_numb = xed
+end)
+
+section1:addToggle("Auto Equip", nil, function(value)
+    getgenv().auto_equip = value
+    while getgenv().auto_equip and wait() do
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EquipAndUnequipTool"):FireServer(getgenv().weapon_area, getgenv().weapon, getgenv().weapon_numb)
+    end
+end)
+
+section1:addButton("Equip", function()
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EquipAndUnequipTool"):FireServer(getgenv().weapon_area, getgenv().weapon, getgenv().weapon_numb)
+end)
+
+local page = venyx:addPage("Eggs", 5012544693)
+local section1 = page:addSection("")
+
+-- game:GetService("Players").LocalPlayer.PlayerGui.UI.Frames.EggReward.EggRewardClient
+
+getgenv().auto_hatch = false
+getgenv().egg_speed = 0.05
+getgenv().egg_amount = 1
+getgenv().egg = "Starter Egg"
+getgenv().Animation = true
+
+section1:addSlider("Egg Wait (MS)", 1, 0, 10000, function(value)
+    getgenv().egg_speed = value / 1000
+end)
+
+section1:addDropdown("Egg Amount (need gamepass)",{1, 3, 8},function(the_egg)
+    getgenv().egg_amount = the_egg
+end)
+
+section1:addDropdown("Select Egg",{"EggEvent1","Starter Egg","Intermediate Egg","Experienced Egg","Master Egg","Ice Egg","Frozen Egg","Shard Egg","Gem Egg","Astral Egg","Fire Egg","Earth Egg","Molten Egg","Crimson Egg","Star Egg","Phoenix Egg","Sand Egg", "Palm Egg", "Coral Egg", "Gladiator Egg", "Guilded Egg", "Aquarius Egg"},function(the_egg)
+    getgenv().egg = the_egg
+end)
+
+section1:addToggle("Egg Animation", getgenv().Animation, function(value)
+    getgenv().Animation = value
+    game:GetService("Players").LocalPlayer.PlayerGui.UI.Frames.EggReward.EggRewardClient.Enabled = getgenv().Animation
+end)
+
+section1:addToggle("Auto CraftAll", nil, function(value)
+    getgenv().craft = value
+    while getgenv().craft and wait() do
+        game:GetService("ReplicatedStorage"):WaitForChild("PetSystem"):WaitForChild("PetInventoryHandler"):FireServer("CraftAll")
+    end
+end)
+
+section1:addToggle("Auto Hatch", nil, function(value)
+    getgenv().auto_hatch = value
+    while getgenv().auto_hatch and wait(getgenv().egg_speed) do
+        if egg == "EggEvent1" then
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EggEvent1"):FireServer(getgenv().egg_amount)
+        else
+            game:GetService("ReplicatedStorage"):WaitForChild("PetSystem"):WaitForChild("PurchaseEgg"):FireServer(getgenv().egg, getgenv().egg_amount)
+        end
+    end
+end)
+-- game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EggEvent1"):FireServer(getgenv().egg_amount)
+
+local page = venyx:addPage("AutoFarm", 5012544693)
+local section1 = page:addSection("AutoFarming")
+
+getgenv().autofarm = false
+getgenv().autofarm_area = "Area1"
+getgenv().autofarm_boss = 1
+
+section1:addDropdown("Select Area", {"Area1", "Area2", "Area3", "Area4", "Area5"}, function(cas)
+    getgenv().autofarm_area = tostring(cas)
+end)
+
+section1:addDropdown("Select Boss", {1,2,3,4,5}, function(cas)
+    getgenv().autofarm_boss = tonumber(cas)
+end)
+
+section1:addToggle("Start Auto Farm", nil, function(value)
+    getgenv().autofarm = value
+    while getgenv().autofarm and wait(0.525) do
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FightOver"):FireServer(getgenv().autofarm_area, getgenv().autofarm_boss)
+    end
+end)
+
+local section1 = page:addSection("Boss Farm")
+
+getgenv().farmboss = false
+getgenv().boss = "Area1"
+
+
+section1:addDropdown("Select Boss", {"Area1", "Area2"}, function(cas)
+    getgenv().boss = tostring(cas)
+end)
+
+section1:addToggle("Farm Boss", nil, function(value)
+    getgenv().farmboss = value
+    while getgenv().farmboss and wait(0.525) do
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FightOver"):FireServer(getgenv().boss, 0)
+    end
+end)
+
+section1:addButton("Teleport To Selected Boss", function()
+    if getgenv().boss == "Area1" then
+        local player = game.Players.LocalPlayer
+        local targetPosition = game.workspace.Fighters.LoneWanderer.Head.Position
+        player.Character:MoveTo(targetPosition)
+    elseif getgenv().boss == "Area2" then
+        local player = game.Players.LocalPlayer
+        local targetPosition = game.workspace.Fighters.ShadowAssassin.Head.Position
+        player.Character:MoveTo(targetPosition)
+    end
+end)
+
+getgenv().gui_toggle = true
+
+local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "GGUI_togglar"
+screenGui.Parent = playerGui
+
+local button1 = Instance.new("TextButton")
+button1.Text = "-"
+button1.TextSize = 20
+button1.Size = UDim2.new(0, 32, 0, 32)
+button1.Position = UDim2.new(0, 16, 0, 10)
+button1.BackgroundTransparency = 0.5
+button1.BackgroundColor3 = Color3.new(0, 0, 0)
+button1.BorderSizePixel = 0
+button1.Parent = screenGui
+button1.TextColor3 = Color3.new(1, 1, 0)
+button1.TextStrokeTransparency = 0
+
+local uiCorner1 = Instance.new("UICorner")
+uiCorner1.CornerRadius = UDim.new(0, 7.5)
+uiCorner1.Parent = button1
+
+local button2 = Instance.new("TextButton")
+button2.Text = "X"
+button2.TextSize = 12
+button2.Size = UDim2.new(0, 32, 0, 32)
+button2.Position = UDim2.new(0, 60, 0, 10)
+button2.BackgroundTransparency = 0.5
+button2.BackgroundColor3 = Color3.new(0, 0, 0)
+button2.BorderSizePixel = 0
+button2.Parent = screenGui
+button2.TextColor3 = Color3.new(1, 0, 0)
+button2.TextStrokeTransparency = 0
+
+local uiCorner2 = Instance.new("UICorner")
+uiCorner2.CornerRadius = UDim.new(0, 7.5)
+uiCorner2.Parent = button2
+
+button1.MouseButton1Click:Connect(function()
+    getgenv().gui_toggle = not getgenv().gui_toggle
+    if getgenv().gui_toggle then
+        button1.Text = "-"
+        button1.TextColor3 = Color3.new(1, 1, 0)
+        game.CoreGui["Louv Hub"].Enabled = true
+    else
+        button1.Text = "+"
+        button1.TextColor3 = Color3.new(0, 1, 0)
+        game.CoreGui["Louv Hub"].Enabled = false
+    end
+end)
+button1.MouseButton2Click:Connect(function()
+    getgenv().gui_toggle = not getgenv().gui_toggle
+    if getgenv().gui_toggle then
+        button1.Text = "-"
+        button1.TextColor3 = Color3.new(1, 1, 0)
+        game.CoreGui["Louv Hub"].Enabled = true
+    else
+        button1.Text = "+"
+        button1.TextColor3 = Color3.new(0, 1, 0)
+        game.CoreGui["Louv Hub"].Enabled = false
+    end
+end)
+button2.MouseButton1Click:Connect(function()
+	screenGui:Destroy()
+    game.CoreGui["Louv Hub"]:Destroy()
+end)
+button2.MouseButton2Click:Connect(function()
+	screenGui:Destroy()
+    game.CoreGui["Louv Hub"]:Destroy()
+end)
+
+-- congrats deo :(( why stealing
+
