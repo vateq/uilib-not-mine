@@ -87,7 +87,24 @@ end)
 
 --local args = {[1] = "Area4",[2] = "Dummies",[3] = 1}
 --game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DoAction"):FireServer(unpack(args))
+local section1 = page:addSection("Dummies/Bags Settings")
+
+getgenv().x = -4
+getgenv().y = 0
+getgenv().z = 2
+
+section1:addSlider("Bags: X", -10, -4, 10, function(value)
+    getgenv().x = value
+end)
+section1:addSlider("Bags: Y", -10, 0, 10, function(value)
+    getgenv().y = value
+end)
+section1:addSlider("Bags: Z", -10, 2, 10, function(value)
+    getgenv().z = value
+end)
+
 local section1 = page:addSection("NunChuck Dummies")
+
 getgenv().dummy = true
 getgenv().dummy_bag = 4
 getgenv().area_dummy = "Area5"
@@ -105,7 +122,7 @@ section1:addToggle("Most Punch Power", nil, function(value)
     while getgenv().dummy and wait() do
         local player = game.Players.LocalPlayer
         local character = player.Character
-        character:SetPrimaryPartCFrame(CFrame.new(workspace.Dummies[getgenv().area_dummy][getgenv().dummy_bag]["Root"].Position) + Vector3.new(-4, 0, 2))
+        character:SetPrimaryPartCFrame(CFrame.new(workspace.Dummies[getgenv().area_dummy][getgenv().dummy_bag]["Root"].Position) + Vector3.new(getgenv().x, getgenv().y, getgenv().z))
         local args = {[1] = getgenv().area_dummy,[2] = "Dummies",[3] = getgenv().dummy_bag}
         game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DoAction"):FireServer(unpack(args))
         game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DoAction"):FireServer()
@@ -132,7 +149,7 @@ section1:addToggle("Most Punch Power", nil, function(value)
         local player = game.Players.LocalPlayer
         local character = player.Character
         if getgenv().punch_bag == 7 then
-            character:SetPrimaryPartCFrame(CFrame.new(workspace.PunchingBags[getgenv().area_punch].VIP["Root"].Position) + Vector3.new(-4, 0, 2))
+            character:SetPrimaryPartCFrame(CFrame.new(workspace.PunchingBags[getgenv().area_punch].VIP["Root"].Position) + Vector3.new(getgenv().x, getgenv().y, getgenv().z))
         else
             character:SetPrimaryPartCFrame(CFrame.new(workspace.PunchingBags[getgenv().area_punch][getgenv().punch_bag]["Root"].Position))
         end
@@ -345,6 +362,4 @@ button2.MouseButton2Click:Connect(function()
 	screenGui:Destroy()
     game.CoreGui["Louv Hub"]:Destroy()
 end)
-
--- congrats deo :(( why stealing
 
