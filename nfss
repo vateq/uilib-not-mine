@@ -93,13 +93,13 @@ getgenv().x = -4
 getgenv().y = 0
 getgenv().z = 2
 
-section1:addSlider("Bags: X", -10, -4, 10, function(value)
+section1:addSlider("Bags: X", -4, -10, 10, function(value)
     getgenv().x = value
 end)
-section1:addSlider("Bags: Y", -10, 0, 10, function(value)
+section1:addSlider("Bags: Y", 0, -10, 10, function(value)
     getgenv().y = value
 end)
-section1:addSlider("Bags: Z", -10, 2, 10, function(value)
+section1:addSlider("Bags: Z", 2, -10, 10, function(value)
     getgenv().z = value
 end)
 
