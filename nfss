@@ -6,6 +6,41 @@ getgenv().auto_claim = false
 getgenv().craft = false
 getgenv().spinner = false
 
+getgenv().x = 0
+getgenv().y = 0
+getgenv().z = 2
+
+getgenv().dummy = false
+getgenv().dummy_bag = 4
+getgenv().area_dummy = "Area5"
+
+getgenv().punches = false
+getgenv().punch_bag = 7
+getgenv().area_punch = "Area5"
+
+getgenv().auto_equip = false
+getgenv().weapon = "Katana"
+getgenv().weapon_area = "Area5"
+getgenv().weapon_numb = 1
+
+getgenv().auto_hatch = false
+getgenv().egg_speed = 0
+getgenv().egg_amount = 1
+getgenv().egg = "Starter Egg"
+getgenv().Animation = true
+
+getgenv().autofarm = false
+getgenv().autofarm_area = "Area1"
+getgenv().autofarm_boss = 1
+
+getgenv().farmboss = false
+getgenv().boss = "Area1"
+
+getgenv().auto_rebirth = false
+
+getgenv().unequip = false
+getgenv().equip = false
+
 -- first page
 local page = venyx:addPage("Main", 5012544693)
 local section1 = page:addSection("Gifts /-/ Free")
@@ -25,11 +60,17 @@ section1:addToggle("Auto Spin Wheel", nil, function(value)
 end)
 
 section1:addButton("Redeem Codes", function()
-    local codes = {"RELEASE", "UPDATE","chaos","SORRY","UGC","MISSING","GamingDan","SECRET"}
+    local codes = {"RELEASE", "UPDATE","chaos","SORRY","UGC","MISSING","GamingDan","SECRET","BielCampos","Numiatic","Piripaque","xMarcelo","DarylandDaniel","Plique"}
     for _, code in pairs(codes) do
         game:GetService("ReplicatedStorage"):WaitForChild("KingermanCodeSystem"):WaitForChild("Redeem"):InvokeServer(tostring(code))
         wait(0.05)
     end
+end)
+
+section1:addButton("Claim Free Passes", function()
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("ClaimGamepass"):InvokeServer(206148169) -- auto hatch
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("ClaimGamepass"):InvokeServer(206147739) -- pet storage
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("ClaimGamepass"):InvokeServer(206146467) -- double punch power
 end)
 
 local section1 = page:addSection("Unlock")
@@ -81,19 +122,33 @@ local section1 = page:addSection("Katana & NunChucks")
 section1:addToggle("Auto Katana/Nunchucks Power", nil, function(value)
     getgenv().auto_katana = value
     while getgenv().auto_katana and wait() do
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DoAction"):FireServer()
+        if getgenv().equip and getgenv().unequip then
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EquipAndUnequipTool"):FireServer(getgenv().weapon_area, getgenv().weapon, getgenv().weapon_numb)
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DoAction"):FireServer()
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EquipAndUnequipTool"):FireServer()
+        elseif getgenv().equip then
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EquipAndUnequipTool"):FireServer(getgenv().weapon_area, getgenv().weapon, getgenv().weapon_numb)
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DoAction"):FireServer()
+        elseif getgenv().unequip then
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DoAction"):FireServer()
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EquipAndUnequipTool"):FireServer()
+        else
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DoAction"):FireServer()
+        end
     end
 end)
 
---local args = {[1] = "Area4",[2] = "Dummies",[3] = 1}
---game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DoAction"):FireServer(unpack(args))
-local section1 = page:addSection("Dummies/Bags Settings")
+section1:addToggle("Equip - Equiper()", nil, function(value)
+    getgenv().equip = value
+end)
 
-getgenv().x = -4
-getgenv().y = 0
-getgenv().z = 2
+section1:addToggle("Unequip - Equiper()", nil, function(value)
+    getgenv().unequip = value
+end)
 
-section1:addSlider("Bags: X", -4, -10, 10, function(value)
+local section1 = page:addSection("Bags Settings")
+
+section1:addSlider("Bags: X", 0, -10, 10, function(value)
     getgenv().x = value
 end)
 section1:addSlider("Bags: Y", 0, -10, 10, function(value)
@@ -102,12 +157,8 @@ end)
 section1:addSlider("Bags: Z", 2, -10, 10, function(value)
     getgenv().z = value
 end)
-
+--[[
 local section1 = page:addSection("NunChuck Dummies")
-
-getgenv().dummy = true
-getgenv().dummy_bag = 4
-getgenv().area_dummy = "Area5"
 
 section1:addDropdown("Area", {"Area1", "Area2", "Area3", "Area4", "Area5"}, function(xed)
     getgenv().area_dummy = xed
@@ -117,7 +168,7 @@ section1:addDropdown("Bag", {1,2,3,4}, function(xed)
     getgenv().dummy_bag = xed
 end)
 
-section1:addToggle("Most Punch Power", nil, function(value)
+section1:addToggle("Most Punch Power (TP)", nil, function(value)
     getgenv().dummy = value
     while getgenv().dummy and wait() do
         local player = game.Players.LocalPlayer
@@ -129,11 +180,18 @@ section1:addToggle("Most Punch Power", nil, function(value)
     end
 end)
 
+section1:addToggle("Most Punch Power (NO TP)", nil, function(value)
+    getgenv().dummy = value
+    while getgenv().dummy and wait() do
+        local player = game.Players.LocalPlayer
+        local character = player.Character
+        local args = {[1] = getgenv().area_dummy,[2] = "Dummies",[3] = getgenv().dummy_bag}
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DoAction"):FireServer(unpack(args))
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DoAction"):FireServer()
+    end
+end)
+]]
 local section1 = page:addSection("Punch Bags")
-
-getgenv().punches = true
-getgenv().punch_bag = 7
-getgenv().area_punch = "Area5"
 
 section1:addDropdown("Area", {"Area1", "Area2", "Area3", "Area4", "Area5"}, function(xed)
     getgenv().area_punch = xed
@@ -143,7 +201,7 @@ section1:addDropdown("Bag", {1,2,3,4,5,6,7}, function(xed)
     getgenv().punch_bag = xed
 end)
 
-section1:addToggle("Most Punch Power", nil, function(value)
+section1:addToggle("Most Punch Power (TP)", nil, function(value)
     getgenv().punches = value
     while getgenv().punches and wait() do
         local player = game.Players.LocalPlayer
@@ -158,13 +216,18 @@ section1:addToggle("Most Punch Power", nil, function(value)
     end
 end)
 
+section1:addToggle("Most Punch Power (NO TP)", nil, function(value)
+    getgenv().punches = value
+    while getgenv().punches and wait() do
+        local player = game.Players.LocalPlayer
+        local character = player.Character
+        local args = {[1] = getgenv().area_punch,[2] = "PunchingBag",[3] = getgenv().punch_bag}
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DoAction"):FireServer(unpack(args))
+    end
+end)
+
 local page = venyx:addPage("Equiper", 5012544693)
 local section1 = page:addSection("Equip-Script")
-
-getgenv().auto_equip = false
-getgenv().weapon = "Katana"
-getgenv().weapon_area = "Area5"
-getgenv().weapon_numb = 1
 
 -- game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EquipAndUnequipTool"):FireServer(getgenv().weapon_area, getgenv().weapon, getgenv().weapon_numb)
 
@@ -195,12 +258,6 @@ local page = venyx:addPage("Eggs", 5012544693)
 local section1 = page:addSection("")
 
 -- game:GetService("Players").LocalPlayer.PlayerGui.UI.Frames.EggReward.EggRewardClient
-
-getgenv().auto_hatch = false
-getgenv().egg_speed = 0.05
-getgenv().egg_amount = 1
-getgenv().egg = "Starter Egg"
-getgenv().Animation = true
 
 section1:addSlider("Egg Wait (MS)", 1, 0, 10000, function(value)
     getgenv().egg_speed = value / 1000
@@ -241,10 +298,6 @@ end)
 local page = venyx:addPage("AutoFarm", 5012544693)
 local section1 = page:addSection("AutoFarming")
 
-getgenv().autofarm = false
-getgenv().autofarm_area = "Area1"
-getgenv().autofarm_boss = 1
-
 section1:addDropdown("Select Area", {"Area1", "Area2", "Area3", "Area4", "Area5"}, function(cas)
     getgenv().autofarm_area = tostring(cas)
 end)
@@ -261,10 +314,6 @@ section1:addToggle("Start Auto Farm", nil, function(value)
 end)
 
 local section1 = page:addSection("Boss Farm")
-
-getgenv().farmboss = false
-getgenv().boss = "Area1"
-
 
 section1:addDropdown("Select Boss", {"Area1", "Area2"}, function(cas)
     getgenv().boss = tostring(cas)
@@ -287,6 +336,20 @@ section1:addButton("Teleport To Selected Boss", function()
         local targetPosition = game.workspace.Fighters.ShadowAssassin.Head.Position
         player.Character:MoveTo(targetPosition)
     end
+end)
+
+local page = venyx:addPage("Auto Rebirth", 5012544693)
+local section1 = page:addSection("Rebirther")
+
+section1:addToggle("Auto Rebirth", nil, function(value)
+    getgenv().auto_rebirth = value
+    while getgenv().auto_rebirth and wait(0.25559) do
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Rebirth"):FireServer()
+    end
+end)
+
+section1:addButton("Rebirth Once", function()
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Rebirth"):FireServer()
 end)
 
 getgenv().gui_toggle = true
@@ -357,9 +420,87 @@ end)
 button2.MouseButton1Click:Connect(function()
 	screenGui:Destroy()
     game.CoreGui["Louv Hub"]:Destroy()
+    getgenv().auto_katana = false
+    getgenv().auto_claim = false
+    getgenv().craft = false
+    getgenv().spinner = false
+    
+    getgenv().x = 0
+    getgenv().y = 0
+    getgenv().z = 2
+    
+    getgenv().dummy = false
+    getgenv().dummy_bag = 4
+    getgenv().area_dummy = "Area5"
+    
+    getgenv().punches = false
+    getgenv().punch_bag = 7
+    getgenv().area_punch = "Area5"
+    
+    getgenv().auto_equip = false
+    getgenv().weapon = "Katana"
+    getgenv().weapon_area = "Area5"
+    getgenv().weapon_numb = 1
+    
+    getgenv().auto_hatch = false
+    getgenv().egg_speed = 0
+    getgenv().egg_amount = 1
+    getgenv().egg = "Starter Egg"
+    getgenv().Animation = true
+    
+    getgenv().autofarm = false
+    getgenv().autofarm_area = "Area1"
+    getgenv().autofarm_boss = 1
+    
+    getgenv().farmboss = false
+    getgenv().boss = "Area1"
+    
+    getgenv().auto_rebirth = false
+    
+    getgenv().unequip = false
+    getgenv().equip = false
 end)
 button2.MouseButton2Click:Connect(function()
 	screenGui:Destroy()
     game.CoreGui["Louv Hub"]:Destroy()
+    getgenv().auto_katana = false
+    getgenv().auto_claim = false
+    getgenv().craft = false
+    getgenv().spinner = false
+    
+    getgenv().x = 0
+    getgenv().y = 0
+    getgenv().z = 2
+    
+    getgenv().dummy = false
+    getgenv().dummy_bag = 4
+    getgenv().area_dummy = "Area5"
+    
+    getgenv().punches = false
+    getgenv().punch_bag = 7
+    getgenv().area_punch = "Area5"
+    
+    getgenv().auto_equip = false
+    getgenv().weapon = "Katana"
+    getgenv().weapon_area = "Area5"
+    getgenv().weapon_numb = 1
+    
+    getgenv().auto_hatch = false
+    getgenv().egg_speed = 0
+    getgenv().egg_amount = 1
+    getgenv().egg = "Starter Egg"
+    getgenv().Animation = true
+    
+    getgenv().autofarm = false
+    getgenv().autofarm_area = "Area1"
+    getgenv().autofarm_boss = 1
+    
+    getgenv().farmboss = false
+    getgenv().boss = "Area1"
+    
+    getgenv().auto_rebirth = false
+    
+    getgenv().unequip = false
+    getgenv().equip = false
 end)
 
