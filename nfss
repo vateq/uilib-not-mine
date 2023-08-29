@@ -54,7 +54,7 @@ end)
 
 section1:addToggle("Auto Spin Wheel", nil, function(value)
     getgenv().spinner = value
-    while getgenv().spinner and wait() do
+    while getgenv().spinner and wait() and game.Players.LocalPlayer:GetAttribute("WheelSpins")>=1 do
         game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Wheel"):InvokeServer("Spin")
     end
 end)
