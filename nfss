@@ -1,4 +1,4 @@
-local uiname = "Louv Hub - Venyx2.21"
+local uiname = "Minion Hub - Venyx2.21"
 
 if game.CoreGui:FindFirstChild(uiname) then
     game.CoreGui[uiname]:Destroy()
@@ -450,7 +450,7 @@ section1:addDropdown("Egg Amount (need gamepass)",{1, 3, 8},function(the_egg)
     getgenv().egg_amount = the_egg
 end)
 
-section1:addDropdown("Select Egg",{"EggEvent1","Starter Egg","Intermediate Egg","Experienced Egg","Master Egg","Ice Egg","Frozen Egg","Shard Egg","Gem Egg","Astral Egg","Fire Egg","Earth Egg","Molten Egg","Crimson Egg","Star Egg","Phoenix Egg","Sand Egg", "Palm Egg", "Coral Egg", "Gladiator Egg", "Guilded Egg", "Aquarius Egg"},function(the_egg)
+section1:addDropdown("Select Egg",{"EggEvent1","EggEvent2","Starter Egg","Intermediate Egg","Experienced Egg","Master Egg","Ice Egg","Frozen Egg","Shard Egg","Gem Egg","Astral Egg","Fire Egg","Earth Egg","Molten Egg","Crimson Egg","Star Egg","Phoenix Egg","Sand Egg", "Palm Egg", "Coral Egg", "Gladiator Egg", "Guilded Egg", "Aquarius Egg"},function(the_egg)
     getgenv().egg = the_egg
 end)
 
@@ -491,7 +491,7 @@ end)
 
 section1:addToggle("Start Auto Farm", nil, function(value)
     getgenv().autofarm = value
-    while getgenv().autofarm and wait(0.525) do
+    while getgenv().autofarm and wait(0) do
         game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FightOver"):FireServer(getgenv().autofarm_area, getgenv().autofarm_boss)
     end
 end)
@@ -504,7 +504,7 @@ end)
 
 section1:addToggle("Farm Boss", nil, function(value)
     getgenv().farmboss = value
-    while getgenv().farmboss and wait(0.525) do
+    while getgenv().farmboss and wait(0) do
         game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("FightOver"):FireServer(getgenv().boss, 0)
     end
 end)
