@@ -542,14 +542,12 @@ section1:addSlider("UI Size: x", 511, 10, 1000, function(value)
     x = value
     b1 = x-36
     b2 = x-76
-    Game.CoreGui[uiname].Main.Size = UDim2.new(0, x, 0, y)
-    b1 = x-36
-    b2 = x-76
-    button1.Position = UDim2.new(0, b1, 0, 2)
-    button2.Position = UDim2.new(0, b2, 0, 2)
 end)
 section1:addSlider("UI Size: y", 428, 10, 1000, function(value)
     y = value
+end)
+
+section1:addButton("Refresh [x, y]", function()
     Game.CoreGui[uiname].Main.Size = UDim2.new(0, x, 0, y)
     b1 = x-36
     b2 = x-76
