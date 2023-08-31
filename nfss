@@ -1,10 +1,185 @@
+local uiname = "Louv Hub - Venyx2.21"
+
+if game.CoreGui:FindFirstChild(uiname) then
+    game.CoreGui[uiname]:Destroy()
+    getgenv().auto_katana = false
+    getgenv().auto_claim = false
+    getgenv().craft = false
+    getgenv().spinner = false
+    getgenv().wwwx = 1500
+    
+    getgenv().x = 0
+    getgenv().y = 0
+    getgenv().z = 2
+    
+    getgenv().dummy = false
+    getgenv().dummy_bag = 4
+    getgenv().area_dummy = "Area5"
+    
+    getgenv().power_booth = false
+    getgenv().katana_n = 1
+    getgenv().nunchuck_n = 1
+    
+    getgenv().punches = false
+    getgenv().punch_bag = 7
+    getgenv().area_punch = "Area5"
+    
+    getgenv().auto_equip = false
+    getgenv().weapon = "Katana"
+    getgenv().weapon_area = "Area5"
+    getgenv().weapon_numb = 1
+    
+    getgenv().auto_hatch = false
+    getgenv().egg_speed = 0
+    getgenv().egg_amount = 1
+    getgenv().egg = "Starter Egg"
+    getgenv().Animation = true
+    
+    getgenv().autofarm = false
+    getgenv().autofarm_area = "Area1"
+    getgenv().autofarm_boss = 1
+    
+    getgenv().farmboss = false
+    getgenv().boss = "Area1"
+    
+    getgenv().auto_rebirth = false
+    
+    getgenv().unequip = false
+    getgenv().equip = false
+end
+
+local uiname = "Louv Hub - Venyx2.21"
+
+
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/zxciaz/VenyxUI/main/Reuploaded"))() --someone reuploaded it so I put it in place of the original back up so guy can get free credit.
-local venyx = library.new("Louv Hub", 5013109572)
+local venyx = library.new(uiname, 5013109572)
+
+local x = 511
+local y = 428
+
+local b1 = x-36
+local b2 = x-76
+
+local spnz = false
+local latest = ""
+
+local button2 = Instance.new("TextButton")
+button2.Text = "-"
+button2.TextSize = 16
+button2.Size = UDim2.new(0, 32, 0, 32)
+button2.Position = UDim2.new(0, b2, 0, 2)
+button2.BackgroundTransparency = 0.5
+button2.BackgroundColor3 = Color3.new(0, 0, 0)
+button2.BorderSizePixel = 0
+button2.Parent = game:GetService("CoreGui")[uiname].Main.TopBar
+button2.TextColor3 = Color3.new(255, 255, 255)
+button2.ZIndex = 5
+button2.TextStrokeTransparency = 0
+
+local uiCorner2 = Instance.new("UICorner")
+uiCorner2.CornerRadius = UDim.new(100, 100)
+uiCorner2.Parent = button2
+
+local button1 = Instance.new("TextButton")
+button1.Text = "X"
+button1.TextSize = 12
+button1.Size = UDim2.new(0, 32, 0, 32)
+button1.Position = UDim2.new(0, b1, 0, 2)
+button1.BackgroundTransparency = 0.5
+button1.BackgroundColor3 = Color3.new(0, 0, 0)
+button1.BorderSizePixel = 0
+button1.Parent = game:GetService("CoreGui")[uiname].Main.TopBar
+button1.TextColor3 = Color3.new(255, 255, 255)
+button1.ZIndex = 5
+button1.TextStrokeTransparency = 0
+
+local uiCorner1 = Instance.new("UICorner")
+uiCorner1.CornerRadius = UDim.new(100, 100)
+uiCorner1.Parent = button1
+
+button2.MouseButton1Click:Connect(function()
+    spnz = not spnz
+    if spnz == true then
+	    Game.CoreGui[uiname].Main.Size = UDim2.new(0, x, 0, 40)
+        local main = Game.CoreGui[uiname].Main
+        local sections = {"Auto Rebirth", "AutoFarm", "Main", "Power", "Equiper", "Eggs", "Settings"}
+        for _, sectionName in ipairs(sections) do
+            if main[sectionName].Visible then
+                latest = sectionName
+                break
+            end
+        end
+        Game.CoreGui[uiname].Main["Auto Rebirth"].Visible = false
+        Game.CoreGui[uiname].Main["AutoFarm"].Visible = false
+        Game.CoreGui[uiname].Main["Main"].Visible = false
+        Game.CoreGui[uiname].Main["Power"].Visible = false
+        Game.CoreGui[uiname].Main["Equiper"].Visible = false
+        Game.CoreGui[uiname].Main["Eggs"].Visible = false
+        Game.CoreGui[uiname].Main["Settings"].Visible = false
+    else
+        Game.CoreGui[uiname].Main.Size = UDim2.new(0, x, 0, y)
+        Game.CoreGui[uiname].Main[latest].Visible = true
+    end
+end)
+button2.MouseButton2Click:Connect(function()
+end)
+button1.MouseButton1Click:Connect(function()
+    game.CoreGui[uiname]:Destroy()
+    getgenv().auto_katana = false
+    getgenv().auto_claim = false
+    getgenv().craft = false
+    getgenv().spinner = false
+    getgenv().wwwx = 1500
+    
+    getgenv().x = 0
+    getgenv().y = 0
+    getgenv().z = 2
+    
+    getgenv().dummy = false
+    getgenv().dummy_bag = 4
+    getgenv().area_dummy = "Area5"
+    
+    getgenv().power_booth = false
+    getgenv().katana_n = 1
+    getgenv().nunchuck_n = 1
+    
+    getgenv().punches = false
+    getgenv().punch_bag = 7
+    getgenv().area_punch = "Area5"
+    
+    getgenv().auto_equip = false
+    getgenv().weapon = "Katana"
+    getgenv().weapon_area = "Area5"
+    getgenv().weapon_numb = 1
+    
+    getgenv().auto_hatch = false
+    getgenv().egg_speed = 0
+    getgenv().egg_amount = 1
+    getgenv().egg = "Starter Egg"
+    getgenv().Animation = true
+    
+    getgenv().autofarm = false
+    getgenv().autofarm_area = "Area1"
+    getgenv().autofarm_boss = 1
+    
+    getgenv().farmboss = false
+    getgenv().boss = "Area1"
+    
+    getgenv().auto_rebirth = false
+    
+    getgenv().unequip = false
+    getgenv().equip = false
+end)
+button1.MouseButton2Click:Connect(function()
+end)
+
+
 
 getgenv().auto_katana = false
 getgenv().auto_claim = false
 getgenv().craft = false
 getgenv().spinner = false
+getgenv().wwwx = 1500
 
 getgenv().x = 0
 getgenv().y = 0
@@ -13,6 +188,10 @@ getgenv().z = 2
 getgenv().dummy = false
 getgenv().dummy_bag = 4
 getgenv().area_dummy = "Area5"
+
+getgenv().power_booth = false
+getgenv().katana_n = 1
+getgenv().nunchuck_n = 1
 
 getgenv().punches = false
 getgenv().punch_bag = 7
@@ -54,8 +233,11 @@ end)
 
 section1:addToggle("Auto Spin Wheel", nil, function(value)
     getgenv().spinner = value
-    while getgenv().spinner and wait() and game.Players.LocalPlayer:GetAttribute("WheelSpins")>=1 do
-        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Wheel"):InvokeServer("Spin")
+    while getgenv().spinner and wait() do
+        local player = Game.Players.LocalPlayer
+        if player:GetAttribute("WheelSpins") >= 1 then
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Wheel"):InvokeServer("Spin")
+        end
     end
 end)
 
@@ -63,7 +245,7 @@ section1:addButton("Redeem Codes", function()
     local codes = {"RELEASE", "UPDATE","chaos","SORRY","UGC","MISSING","GamingDan","SECRET","BielCampos","Numiatic","Piripaque","xMarcelo","DarylandDaniel","Plique"}
     for _, code in pairs(codes) do
         game:GetService("ReplicatedStorage"):WaitForChild("KingermanCodeSystem"):WaitForChild("Redeem"):InvokeServer(tostring(code))
-        wait(0.05)
+        wait(1.55)
     end
 end)
 
@@ -115,35 +297,36 @@ section1:addButton("Teleport To Area 5", function()
     targetPosition = targetPosition + Vector3.new(5, 0, 5)
     player.Character:MoveTo(targetPosition)    
 end)
-
 local page = venyx:addPage("Power", 5012544693)
 local section1 = page:addSection("Katana & NunChucks")
 
-section1:addToggle("Auto Katana/Nunchucks Power", nil, function(value)
+section1:addToggle("Auto Katana/Nunchucks Power (Fast)", nil, function(value)
     getgenv().auto_katana = value
     while getgenv().auto_katana and wait() do
-        if getgenv().equip and getgenv().unequip then
-            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EquipAndUnequipTool"):FireServer(getgenv().weapon_area, getgenv().weapon, getgenv().weapon_numb)
-            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DoAction"):FireServer()
-            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EquipAndUnequipTool"):FireServer()
-        elseif getgenv().equip then
-            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EquipAndUnequipTool"):FireServer(getgenv().weapon_area, getgenv().weapon, getgenv().weapon_numb)
-            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DoAction"):FireServer()
-        elseif getgenv().unequip then
-            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DoAction"):FireServer()
-            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EquipAndUnequipTool"):FireServer()
-        else
-            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DoAction"):FireServer()
-        end
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("DoAction"):FireServer()
     end
 end)
 
-section1:addToggle("Equip - Equiper()", nil, function(value)
-    getgenv().equip = value
+section1:addSlider("Wait Before Change (MS)", 1, 0, 10000, function(value)
+    getgenv().wwwx = value / 10000
 end)
 
-section1:addToggle("Unequip - Equiper()", nil, function(value)
-    getgenv().unequip = value
+section1:addToggle("AutoPower (Booth, Slow)", nil, function(value)
+    getgenv().power_booth = value
+    while getgenv().power_booth and wait() do
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EquipAndUnequipTool"):FireServer("Area5", "Katana", getgenv().katana_n)
+        wait(getgenv().wwwx)
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EquipAndUnequipTool"):FireServer("Area5", "Nunchuck", getgenv().nunchuck_n)
+        wait(getgenv().wwwx)
+    end
+end)
+
+section1:addDropdown("NunChuck LVL", {1,2,3,4,5,6,7,8,9,10,11,12}, function(xed)
+    getgenv().nunchuck_n = xed
+end)
+
+section1:addDropdown("Katana LVL", {1,2,3,4,5,6,7,8,9,10,11,12}, function(xed)
+    getgenv().katana_n = xed
 end)
 
 local section1 = page:addSection("Bags Settings")
@@ -352,155 +535,40 @@ section1:addButton("Rebirth Once", function()
     game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Rebirth"):FireServer()
 end)
 
-getgenv().gui_toggle = true
+local page = venyx:addPage("Settings", 5012544693)
+local section1 = page:addSection("UI Settings")
 
-local player = game.Players.LocalPlayer
-local playerGui = player:WaitForChild("PlayerGui")
-
-local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "GGUI_togglar"
-screenGui.Parent = playerGui
-
-local button1 = Instance.new("TextButton")
-button1.Text = "-"
-button1.TextSize = 20
-button1.Size = UDim2.new(0, 32, 0, 32)
-button1.Position = UDim2.new(0, 16, 0, 10)
-button1.BackgroundTransparency = 0.5
-button1.BackgroundColor3 = Color3.new(0, 0, 0)
-button1.BorderSizePixel = 0
-button1.Parent = screenGui
-button1.TextColor3 = Color3.new(1, 1, 0)
-button1.TextStrokeTransparency = 0
-
-local uiCorner1 = Instance.new("UICorner")
-uiCorner1.CornerRadius = UDim.new(0, 7.5)
-uiCorner1.Parent = button1
-
-local button2 = Instance.new("TextButton")
-button2.Text = "X"
-button2.TextSize = 12
-button2.Size = UDim2.new(0, 32, 0, 32)
-button2.Position = UDim2.new(0, 60, 0, 10)
-button2.BackgroundTransparency = 0.5
-button2.BackgroundColor3 = Color3.new(0, 0, 0)
-button2.BorderSizePixel = 0
-button2.Parent = screenGui
-button2.TextColor3 = Color3.new(1, 0, 0)
-button2.TextStrokeTransparency = 0
-
-local uiCorner2 = Instance.new("UICorner")
-uiCorner2.CornerRadius = UDim.new(0, 7.5)
-uiCorner2.Parent = button2
-
-button1.MouseButton1Click:Connect(function()
-    getgenv().gui_toggle = not getgenv().gui_toggle
-    if getgenv().gui_toggle then
-        button1.Text = "-"
-        button1.TextColor3 = Color3.new(1, 1, 0)
-        game.CoreGui["Louv Hub"].Enabled = true
-    else
-        button1.Text = "+"
-        button1.TextColor3 = Color3.new(0, 1, 0)
-        game.CoreGui["Louv Hub"].Enabled = false
-    end
+section1:addSlider("UI Size: x", 511, 10, 1000, function(value)
+    x = value
+    b1 = x-36
+    b2 = x-76
+    Game.CoreGui[uiname].Main.Size = UDim2.new(0, x, 0, y)
+    b1 = x-36
+    b2 = x-76
+    button1.Position = UDim2.new(0, b1, 0, 2)
+    button2.Position = UDim2.new(0, b2, 0, 2)
 end)
-button1.MouseButton2Click:Connect(function()
-    getgenv().gui_toggle = not getgenv().gui_toggle
-    if getgenv().gui_toggle then
-        button1.Text = "-"
-        button1.TextColor3 = Color3.new(1, 1, 0)
-        game.CoreGui["Louv Hub"].Enabled = true
-    else
-        button1.Text = "+"
-        button1.TextColor3 = Color3.new(0, 1, 0)
-        game.CoreGui["Louv Hub"].Enabled = false
-    end
-end)
-button2.MouseButton1Click:Connect(function()
-	screenGui:Destroy()
-    game.CoreGui["Louv Hub"]:Destroy()
-    getgenv().auto_katana = false
-    getgenv().auto_claim = false
-    getgenv().craft = false
-    getgenv().spinner = false
-    
-    getgenv().x = 0
-    getgenv().y = 0
-    getgenv().z = 2
-    
-    getgenv().dummy = false
-    getgenv().dummy_bag = 4
-    getgenv().area_dummy = "Area5"
-    
-    getgenv().punches = false
-    getgenv().punch_bag = 7
-    getgenv().area_punch = "Area5"
-    
-    getgenv().auto_equip = false
-    getgenv().weapon = "Katana"
-    getgenv().weapon_area = "Area5"
-    getgenv().weapon_numb = 1
-    
-    getgenv().auto_hatch = false
-    getgenv().egg_speed = 0
-    getgenv().egg_amount = 1
-    getgenv().egg = "Starter Egg"
-    getgenv().Animation = true
-    
-    getgenv().autofarm = false
-    getgenv().autofarm_area = "Area1"
-    getgenv().autofarm_boss = 1
-    
-    getgenv().farmboss = false
-    getgenv().boss = "Area1"
-    
-    getgenv().auto_rebirth = false
-    
-    getgenv().unequip = false
-    getgenv().equip = false
-end)
-button2.MouseButton2Click:Connect(function()
-	screenGui:Destroy()
-    game.CoreGui["Louv Hub"]:Destroy()
-    getgenv().auto_katana = false
-    getgenv().auto_claim = false
-    getgenv().craft = false
-    getgenv().spinner = false
-    
-    getgenv().x = 0
-    getgenv().y = 0
-    getgenv().z = 2
-    
-    getgenv().dummy = false
-    getgenv().dummy_bag = 4
-    getgenv().area_dummy = "Area5"
-    
-    getgenv().punches = false
-    getgenv().punch_bag = 7
-    getgenv().area_punch = "Area5"
-    
-    getgenv().auto_equip = false
-    getgenv().weapon = "Katana"
-    getgenv().weapon_area = "Area5"
-    getgenv().weapon_numb = 1
-    
-    getgenv().auto_hatch = false
-    getgenv().egg_speed = 0
-    getgenv().egg_amount = 1
-    getgenv().egg = "Starter Egg"
-    getgenv().Animation = true
-    
-    getgenv().autofarm = false
-    getgenv().autofarm_area = "Area1"
-    getgenv().autofarm_boss = 1
-    
-    getgenv().farmboss = false
-    getgenv().boss = "Area1"
-    
-    getgenv().auto_rebirth = false
-    
-    getgenv().unequip = false
-    getgenv().equip = false
+section1:addSlider("UI Size: y", 428, 10, 1000, function(value)
+    y = value
+    Game.CoreGui[uiname].Main.Size = UDim2.new(0, x, 0, y)
+    b1 = x-36
+    b2 = x-76
+    button1.Position = UDim2.new(0, b1, 0, 2)
+    button2.Position = UDim2.new(0, b2, 0, 2)
 end)
 
+section1:addButton("x,y Set To Main", function()
+    x = 511
+    y = 428
+    b1 = x-36
+    b2 = x-76
+    Game.CoreGui[uiname].Main.Size = UDim2.new(0, x, 0, y)
+    button1.Position = UDim2.new(0, b1, 0, 2)
+    button2.Position = UDim2.new(0, b2, 0, 2)
+end)
+
+local section1 = page:addSection("Game Misc")
+
+section1:addButton("AntiAfk", function()
+
+end)
