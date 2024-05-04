@@ -391,14 +391,6 @@ function Environment.Functions:ResetSettings()
     SaveSettings()
 end
 
-function Environment.Functions:GetDocumentation()
-    setclipboard("https://github.com/Exunys/Wall-Hack"); SendNotification(Title, "GitHub Documentation Page copied to clipboard!", 3)
-end
-
---// Main
-
-Load(); SendNotification(Title, "Wall Hack script successfully loaded! Check the GitHub page on how to configure the script.", 5)
-
 --// Reload On Teleport
 
 if Environment.Settings.ReloadOnTeleport then
